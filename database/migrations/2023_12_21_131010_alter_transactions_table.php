@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('set null');
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 

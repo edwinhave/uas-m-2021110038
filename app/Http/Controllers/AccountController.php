@@ -12,7 +12,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        return view('accounts.index');
     }
 
     /**
@@ -36,7 +36,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+        return view('accounts.index');
     }
 
     /**
