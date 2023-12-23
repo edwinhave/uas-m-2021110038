@@ -1,25 +1,37 @@
 @extends('layouts.master')
 
-@section('title', 'Account List')
+@section('title', 'Daftar Akun')
 
 @section('content')
-    <h1>Account List</h1>
-    <div class="container mt-5">
-        <h2>Form Example</h2>
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            <div class="mb-3">
-                <label for="jenis" class="form-label">Jenis</label>
-                <input type="text" class="form-control" id="jenis" name="jenis" required>
-            </div>
-            <div class="mb-3">
-                <label for="action" class="form-label">Action</label>
-                <input type="text" class="form-control" id="action" name="action" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Pendaftar Akun</h2>
+            <p><a href="/accounts/create" class="btn btn-primary">Buat Akun Baru</a></p>
+
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama</th>
+                        <th>Jenis</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <a href="/" class="btn btn-secondary">Kembali ke Beranda</a>
+        </div>
     </div>
 @endsection

@@ -19,8 +19,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () { return view('welcome');});
 Route::fallback(function () {return view('error');});
 
-Route::get('/', [AppController::class, 'index']);
+Route::get('/', [AppController::class, 'index'])->name('index');
 
-Route::resource('/accounts', AccountController::class);
-
-Route::resource('/transactions', TransactionController::class);
+Route::resource('accounts', AccountController::class);
+Route::resource('transactions', TransactionController::class);

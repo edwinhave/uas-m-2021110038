@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Illuminate\Http\Request;
 
+
 class AccountController extends Controller
 {
     /**
@@ -12,7 +13,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('accounts.index');
+        $accounts = Account::all();
+        return view('accounts.index', compact('accounts'));
     }
 
     /**
@@ -21,6 +23,7 @@ class AccountController extends Controller
     public function create()
     {
         //
+        return view('accounts.create');
     }
 
     /**
@@ -28,7 +31,16 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'id' => 'required|max:16',
+            'nama' => 'required',
+            'jenis' => 'required|in:PERSONAL,BISNIS',
+        ]);
+
+        Account::create($request->all());
+
+        return redirect()->route('accounts.index')->with('success', 'Akun berhasil Terdaftar');
     }
 
     /**
@@ -36,23 +48,45 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        return view('accounts.index');
+        $accounts = Account::all();
+
+        return view('accounts.show', compact('account'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Account $account)
+    public function edit(Account $account, Request $request)
     {
         //
+        $request->validate([
+            'id' => 'required|max:16',
+            'nama' => 'required',
+            'jenis' => 'required|in:PERSONAL,BISNIS',
+        ]);
+
+        $account = Account::find($account->id);
+        $account->update($request->all());
+
+        return redirect()->route('accounts.index')->with('success', 'Akun berhasil berhasil diperbarui');
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Account $account)
     {
-        //
+        $request->validate([
+            'id' => 'required|max:16',
+            'nama' => 'required',
+            'jenis' => 'required|in:PERSONAL,BISNIS',
+        ]);
+
+        // Update data di dalam database
+        $account->update($request->all());
+
+        return redirect()->route('accounts.index')->with('success', 'Data akun berhasil diperbarui!');
     }
 
     /**
@@ -60,6 +94,8 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        $account->delete();
+
+        return redirect()->route('accounts.index')->with('success', 'Data akun berhasil dihapus');
     }
 }

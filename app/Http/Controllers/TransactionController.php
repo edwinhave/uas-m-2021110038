@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Models\Account;
+
 
 class TransactionController extends Controller
 {
@@ -12,7 +14,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('transactions.index');
+        $transactions = Transaction::all();
+        return view('transactions.index', compact('transactions'));
     }
 
     /**
@@ -20,7 +23,9 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+
+        $accounts = Account::all();
+        return view('transactions.create', compact('accounts'));
     }
 
     /**
@@ -28,7 +33,15 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kategori' => 'required',
+            'nominal' => 'required',
+            'tujuan' => 'required|exists:accounts,id',
+            'account_id' => 'required|exists:accounts,id',
+        ]);
+
+        Transaction::create($request->all());
+        return redirect()->route('transactions.index')->with('success', 'Transaksi di Buat!');
     }
 
     /**
