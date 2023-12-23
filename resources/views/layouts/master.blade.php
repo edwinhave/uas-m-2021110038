@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <ul class="nav justify-content-center">
+    <ul class="nav justify-content-center fixed-top">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/transactions">Transcations</a>
