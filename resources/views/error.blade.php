@@ -4,29 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>404 Not Found</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+        }
 
-    <title>Document</title>
+        .error-container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 8rem;
+            margin: 0;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
-<body class="d-flex align-items-center min-vh-100">
-
-    <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-md-6">
-                <div class="h-100 p-5 text-center text-bg-dark rounded-3">
-                    <h1 class="display-1">404 NOT FOUND</h1>
-                    <a href="/" class="btn btn-primary btn-lg">Rumah</a>
-                </div>
-            </div>
-        </div>
+<body>
+    <div class="error-container">
+        <h1>404</h1>
+        <p>Halaman yang Anda cari tidak ditemukan</p>
+        <a href="/" class="btn">Kembali ke Beranda</a>
     </div>
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

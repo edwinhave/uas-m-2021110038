@@ -4,98 +4,70 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $accounts = Account::all();
         return view('accounts.index', compact('accounts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
         return view('accounts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-
         $request->validate([
             'id' => 'required|max:16',
             'nama' => 'required',
-            'jenis' => 'required|in:PERSONAL,BISNIS',
+            'jenis' => 'required|in:BISNIS,PERSONAL',
         ]);
 
         Account::create($request->all());
 
-        return redirect()->route('accounts.index')->with('success', 'Akun berhasil Terdaftar');
+        return redirect()->route('accounts.index')->with('success', 'Akun berhasil di Buat!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Account $account)
+    public function edit($id)
     {
-        $accounts = Account::all();
-
-        return view('accounts.show', compact('account'));
+        $account = Account::find($id);
+        return view('accounts.edit', compact('account'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Account $account, Request $request)
-    {
-        //
-        $request->validate([
-            'id' => 'required|max:16',
-            'nama' => 'required',
-            'jenis' => 'required|in:PERSONAL,BISNIS',
-        ]);
-
-        $account = Account::find($account->id);
-        $account->update($request->all());
-
-        return redirect()->route('accounts.index')->with('success', 'Akun berhasil berhasil diperbarui');
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Account $account)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'id' => 'required|max:16',
             'nama' => 'required',
-            'jenis' => 'required|in:PERSONAL,BISNIS',
+            'jenis' => 'required|in:BISNIS,PERSONAL',
         ]);
 
-        // Update data di dalam database
+        $account = Account::find($id);
         $account->update($request->all());
 
-        return redirect()->route('accounts.index')->with('success', 'Data akun berhasil diperbarui!');
+        return redirect()->route('accounts.index')->with('success', 'Akun berhasil di Update!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Account $account)
+    public function destroy($id)
     {
+        // Check if the account is used in transactions
+        $isUsedInTransactions = DB::table('transactions')->where('account_id', $id)->exists();
+
+        if ($isUsedInTransactions) {
+            return redirect()->route('accounts.index')->with('error', 'Akun tidak dapat dihapus karena sudah digunakan dalam transaksi.');
+        }
+
+        $account = Account::find($id);
         $account->delete();
 
-        return redirect()->route('accounts.index')->with('success', 'Data akun berhasil dihapus');
+        return redirect()->route('accounts.index')->with('success', 'Akun berhasil dihapus!');
+    }
+
+    public function show($id)
+    {
     }
 }

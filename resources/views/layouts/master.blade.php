@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <title>@yield('title')</title>
+    <title>@yield('title', 'Default Title')</title>
 </head>
 
 <body>
@@ -14,19 +14,16 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/transactions">Transcations</a>
+            <a class="nav-link" href="/transactions">Transaksi</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/accounts">Accounts</a>
+            <a class="nav-link" href="/accounts">Akun</a>
         </li>
-
     </ul>
 
-
-
-
-
-
+    <div class="container mt-5">
+        @yield('content')
+    </div>
 
     <footer class="bg-dark text-white text-center py-3 fixed-bottom">
         <p>&copy; 2023 Website Menarik. All Rights Reserved.</p>
